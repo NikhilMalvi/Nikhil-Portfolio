@@ -107,6 +107,7 @@ const projects = [
     slug: 'emberbelle',
     type: 'Luxury Jewellery',
     category: 'E-Commerce',
+    image: '/projects/emberbelle.png',
     url: '#',
     desc: 'Visual-first jewellery website focused on premium product storytelling and collection showcases.',
     headline: 'LUXURY JEWELLERY',
@@ -126,6 +127,7 @@ const projects = [
     slug: 'jain-sweets',
     type: 'Food & Sweets',
     category: 'E-Commerce',
+    image: '/projects/jain-sweets.png',
     url: '#',
     desc: 'Heritage food brand website built around appetizing product visuals, festive gifting, and clear navigation.',
     headline: 'AUTHENTIC SWEETS',
@@ -145,6 +147,7 @@ const projects = [
     slug: 'laddha-renewables',
     type: 'Renewable Energy',
     category: 'WordPress',
+    image: '/projects/laddha-renewables.png',
     url: '#',
     desc: 'Corporate renewable-energy website with a clear service-led structure and project impact calculator.',
     headline: 'CLEAN ENERGY FUTURE',
@@ -164,6 +167,7 @@ const projects = [
     slug: 'jv-healthcare',
     type: 'Healthcare & Pharma',
     category: 'WordPress',
+    image: '/projects/jv-healthcare.png',
     url: '#',
     desc: 'Professional healthcare business website with a conversion-focused information structure and clinic locator.',
     headline: 'TRUSTED HEALTHCARE',
@@ -183,6 +187,7 @@ const projects = [
     slug: 'jazz-deep',
     type: 'Corporate Advisory',
     category: 'WordPress',
+    image: '/projects/jazz-deep.png',
     url: '#',
     desc: 'Bold corporate visual direction translated into a responsive, high-impact business advisory website.',
     headline: 'STRATEGIC ADVISORY',
@@ -202,6 +207,7 @@ const projects = [
     slug: 'jignesh-sheth',
     type: 'Personal Brand / Artist',
     category: 'WordPress',
+    image: '/projects/jignesh-sheth.png',
     url: '#',
     desc: 'Personal brand website designed to showcase artistic journey, discography, tour dates and booking inquiries.',
     headline: 'MUSIC & STORIES',
@@ -590,9 +596,6 @@ function MockFeatureBar({ p }) {
             <span className="mock-stars">★★★★★</span>
           </div>
           <div className="mock-prod-price">{price}</div>
-        </div>
-        <div className="mock-prod-action">
-          <span className="mock-cart-btn"><FiShoppingBag /> Add to Cart</span>
         </div>
       </div>
     );
