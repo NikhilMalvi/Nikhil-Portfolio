@@ -10,7 +10,8 @@ import {
   FiCode, FiShoppingBag, FiServer, FiShield, FiStar,
   FiExternalLink, FiMail, FiGlobe, FiRefreshCw, FiSend,
   FiZap, FiCopy, FiCheckCircle, FiArrowLeft, FiClock,
-  FiAward, FiLayers, FiCpu, FiMessageSquare, FiActivity
+  FiAward, FiLayers, FiCpu, FiMessageSquare, FiActivity,
+  FiAlertCircle
 } from 'react-icons/fi';
 import {
   FaInstagram, FaLinkedinIn, FaGithub, FaWhatsapp, FaWordpress, FaStar
@@ -289,7 +290,8 @@ const packages = [
       'Contact form & WhatsApp button',
       'Basic SEO setup & metadata',
       'Social media links integration',
-      'Domain connection & launch support'
+      'Domain connection & launch support',
+      'Domain & hosting charged extra (not included)'
     ],
     featured: false
   },
@@ -307,8 +309,9 @@ const packages = [
       'Blog / News / Articles archive',
       'Contact + lead generation forms',
       'Speed optimization & caching setup',
-      'Domain, hosting & SSL setup guidance',
-      '14 days post-launch technical support'
+      'Domain & hosting setup guidance',
+      '14 days post-launch technical support',
+      'Domain & hosting charged extra (not included)'
     ],
     featured: true
   },
@@ -327,14 +330,15 @@ const packages = [
       'Shipping rates & pin-code setup',
       'Up to 20 initial products added',
       'Mobile-first responsive optimization',
-      'Deployment, SSL & launch testing'
+      'Deployment, SSL & launch testing',
+      'Domain & hosting charged extra (not included)'
     ],
     featured: false
   }
 ];
 
 const faqs = [
-  ['Do you provide domain and hosting?', 'Yes. I guide you to choose, purchase, and connect your domain and hosting with reputable providers. Provider subscription and renewal costs are paid directly by you, separate from the website development fee.'],
+  ['Do you provide domain and hosting?', 'Domain and hosting charges are extra and are not included in the Starter, Business, or E-Commerce packages. I guide you to choose, purchase, and connect your domain and hosting directly with reliable providers so you maintain 100% ownership.'],
   ['How does the advance payment work?', 'The project officially begins after the package advance is received: ₹2,000 for Starter, ₹5,000 for Business, and ₹8,000+ for E-Commerce. The remaining amount is paid upon project completion before final live launch.'],
   ['Can you redesign my existing website?', 'Yes. Website redesign is available as a dedicated service. I review your existing pages, keep your SEO juice and content intact, and craft a substantially faster, more modern visual interface.'],
   ['Do you work with WordPress and WooCommerce?', 'Yes. WordPress, Elementor Pro, Advanced Custom Fields (ACF), and WooCommerce are my primary development specializations, backed by clean PHP, HTML5, CSS3, and JavaScript.'],
@@ -1312,7 +1316,7 @@ function Pricing() {
         <div className="container">
           <span className="kicker">Packages</span>
           <h1>Clear pricing.<br /><em>No mystery scope.</em></h1>
-          <p>Choose a starting package and add only what your project actually needs. Domain and hosting provider costs are separate.</p>
+          <p>Choose a starting package and add only what your project actually needs. Domain and hosting charges are extra and not included in packages.</p>
         </div>
       </section>
       <Section className="pricing-section">
@@ -1356,11 +1360,20 @@ function PriceCard({ p }) {
       <h2>{p.name}</h2>
       <div className="price">{p.price}</div>
       <div className="advance">Advance to start <b>{p.advance}</b></div>
+      <div className="price-hosting-badge">
+        <FiAlertCircle /> Domain & hosting charged extra (not included)
+      </div>
       <div className="divider" />
       <ul>
-        {p.features.map(f => (
-          <li key={f}><FiCheck />{f}</li>
-        ))}
+        {p.features.map(f => {
+          const isExtra = f.toLowerCase().includes('domain & hosting charged extra');
+          return (
+            <li key={f} className={isExtra ? 'feature-extra-note' : ''}>
+              {isExtra ? <FiAlertCircle className="icon-extra" /> : <FiCheck />}
+              <span>{f}</span>
+            </li>
+          );
+        })}
       </ul>
       {p.featured && <span className="popular">MOST POPULAR</span>}
       <Link
@@ -1499,8 +1512,9 @@ function Contact() {
     }));
   }, [initialType, initialBudget, initialDetails]);
 
-  const [sent, setSent] = useState(false);
-  const [copied, setCopied] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [result, setResult] = useState('');
+  const [resultMsg, setResultMsg] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -1529,24 +1543,54 @@ function Contact() {
     ].join('\n');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = `Website enquiry — ${formState.name || 'New client'}${packageParam ? ` [${packageParam} Package]` : ''}`;
-    const body = getInquiryBody();
-    window.location.href = `mailto:nikhilmalvi845@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    setSubmitting(true);
+    setResult('');
+    setResultMsg('');
+
+    try {
+      const formData = new FormData(e.target);
+      formData.append('access_key', '9dd05651-4c0f-45f7-a59c-d3ffac554218');
+      formData.append('subject', `Website Enquiry from ${formState.name || 'New Client'}${packageParam ? ` [${packageParam} Package]` : ''}`);
+      formData.append('from_name', 'Nikhil Malvi Portfolio');
+      if (!formData.get('message')) {
+        formData.append('message', formState.details);
+      }
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setResult('success');
+        setResultMsg('Thank you! Your enquiry has been sent directly to Nikhil. I will review your requirements and get back to you promptly.');
+        setFormState({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          type: '',
+          budget: '',
+          details: ''
+        });
+      } else {
+        setResult('error');
+        setResultMsg(data.message || 'Something went wrong while submitting. Please try WhatsApp or email directly.');
+      }
+    } catch (err) {
+      setResult('error');
+      setResultMsg('Network error submitting your enquiry. Please reach out via WhatsApp or email directly.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleWhatsApp = () => {
     const text = `Hi Nikhil, I would like to discuss a website project:\n\n${getInquiryBody()}`;
     window.open(`https://wa.me/916352887015?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(getInquiryBody()).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    });
   };
 
   const hasPrefill = packageParam || serviceParam || projectParam;
@@ -1565,135 +1609,162 @@ function Contact() {
           </div>
         </div>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
-          {hasPrefill && (
-            <div className="prefill-badge">
-              <span>
-                🎯 Selected intent: {packageParam ? `${packageParam} Package` : serviceParam ? serviceParam : `Project: ${projectParam}`}
-              </span>
-              <button type="button" onClick={clearSelection}>Reset</button>
+        {result === 'success' ? (
+          <div className="form-success-card">
+            <div className="form-success-icon">
+              <FiCheckCircle />
             </div>
-          )}
-
-          <div className="form-row">
-            <label>
-              Name
-              <input
-                required
-                name="name"
-                value={formState.name}
-                onChange={handleChange}
-                placeholder="Your name"
-              />
-            </label>
-            <label>
-              Email
-              <input
-                required
-                type="email"
-                name="email"
-                value={formState.email}
-                onChange={handleChange}
-                placeholder="you@example.com"
-              />
-            </label>
-          </div>
-
-          <div className="form-row">
-            <label>
-              WhatsApp / Phone
-              <input
-                required
-                name="phone"
-                value={formState.phone}
-                onChange={handleChange}
-                placeholder="+91..."
-              />
-            </label>
-            <label>
-              Business / Company
-              <input
-                name="company"
-                value={formState.company}
-                onChange={handleChange}
-                placeholder="Company name"
-              />
-            </label>
-          </div>
-
-          <label>
-            Website type
-            <select
-              required
-              name="type"
-              value={formState.type}
-              onChange={handleChange}
-            >
-              <option value="" disabled>Select one</option>
-              <option value="Static Website">Static Website</option>
-              <option value="WordPress Website">WordPress Website</option>
-              <option value="E-Commerce Website">E-Commerce Website</option>
-              <option value="Website Redesign">Website Redesign</option>
-              <option value="Maintenance">Maintenance</option>
-              <option value="Not sure yet">Not sure yet</option>
-            </select>
-          </label>
-
-          <label>
-            Budget
-            <select
-              required
-              name="budget"
-              value={formState.budget}
-              onChange={handleChange}
-            >
-              <option value="" disabled>Select your budget</option>
-              <option value="₹5K – ₹10K">₹5K – ₹10K</option>
-              <option value="₹10K – ₹20K">₹10K – ₹20K</option>
-              <option value="₹20K – ₹35K">₹20K – ₹35K</option>
-              <option value="₹35K+">₹35K+</option>
-              <option value="Not sure">Not sure</option>
-            </select>
-          </label>
-
-          <label>
-            Project details
-            <textarea
-              required
-              name="details"
-              rows="6"
-              value={formState.details}
-              onChange={handleChange}
-              placeholder="Tell me about your business, pages, features and timeline..."
-            />
-          </label>
-
-          <div className="form-actions-grid">
-            <button className="btn dark" type="submit">
-              <FiSend /> Send via Email
-            </button>
-            <button className="btn-whatsapp" type="button" onClick={handleWhatsApp}>
-              <FaWhatsapp /> Send via WhatsApp
-            </button>
-          </div>
-
-          {sent && (
-            <div className="form-feedback">
-              <div className="form-feedback-msg">
-                <FiCheckCircle />
-                <span>Your email application should open with your enquiry.</span>
-              </div>
-              <div className="form-feedback-actions">
-                <button type="button" className="btn-copy-action" onClick={handleCopy}>
-                  {copied ? <><FiCheck /> Copied to clipboard!</> : <><FiCopy /> Copy enquiry details</>}
-                </button>
-                <button type="button" className="btn-copy-action" onClick={handleWhatsApp}>
-                  <FaWhatsapp /> Send via WhatsApp instead
-                </button>
-              </div>
+            <h3>Enquiry Sent Successfully!</h3>
+            <p>{resultMsg}</p>
+            <div className="form-success-actions">
+              <button
+                type="button"
+                className="btn dark"
+                onClick={() => {
+                  setResult('');
+                  setResultMsg('');
+                }}
+              >
+                Send Another Message
+              </button>
+              <button
+                type="button"
+                className="btn-whatsapp"
+                onClick={handleWhatsApp}
+              >
+                <FaWhatsapp /> Chat on WhatsApp Now
+              </button>
             </div>
-          )}
-        </form>
+          </div>
+        ) : (
+          <form className="contact-form" onSubmit={handleSubmit}>
+            {hasPrefill && (
+              <div className="prefill-badge">
+                <span>
+                  🎯 Selected intent: {packageParam ? `${packageParam} Package` : serviceParam ? serviceParam : `Project: ${projectParam}`}
+                </span>
+                <button type="button" onClick={clearSelection}>Reset</button>
+              </div>
+            )}
+
+            {result === 'error' && (
+              <div className="form-error-banner">
+                <FiAlertCircle />
+                <span>{resultMsg}</span>
+              </div>
+            )}
+
+            <div className="form-row">
+              <label>
+                Name
+                <input
+                  required
+                  name="name"
+                  value={formState.name}
+                  onChange={handleChange}
+                  placeholder="Your name"
+                />
+              </label>
+              <label>
+                Email
+                <input
+                  required
+                  type="email"
+                  name="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                  placeholder="you@example.com"
+                />
+              </label>
+            </div>
+
+            <div className="form-row">
+              <label>
+                WhatsApp / Phone
+                <input
+                  required
+                  name="phone"
+                  value={formState.phone}
+                  onChange={handleChange}
+                  placeholder="+91..."
+                />
+              </label>
+              <label>
+                Business / Company
+                <input
+                  name="company"
+                  value={formState.company}
+                  onChange={handleChange}
+                  placeholder="Company name"
+                />
+              </label>
+            </div>
+
+            <label>
+              Website type
+              <select
+                required
+                name="type"
+                value={formState.type}
+                onChange={handleChange}
+              >
+                <option value="" disabled>Select one</option>
+                <option value="Static Website">Static Website</option>
+                <option value="WordPress Website">WordPress Website</option>
+                <option value="E-Commerce Website">E-Commerce Website</option>
+                <option value="Website Redesign">Website Redesign</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </label>
+
+            <label>
+              Budget
+              <select
+                required
+                name="budget"
+                value={formState.budget}
+                onChange={handleChange}
+              >
+                <option value="" disabled>Select your budget</option>
+                <option value="₹5K – ₹10K">₹5K – ₹10K</option>
+                <option value="₹10K – ₹20K">₹10K – ₹20K</option>
+                <option value="₹20K – ₹35K">₹20K – ₹35K</option>
+                <option value="₹35K+">₹35K+</option>
+                <option value="Not sure">Not sure</option>
+              </select>
+            </label>
+
+            <label>
+              Project details
+              <textarea
+                required
+                name="details"
+                rows="6"
+                value={formState.details}
+                onChange={handleChange}
+                placeholder="Tell me about your business, pages, features and timeline..."
+              />
+            </label>
+
+            <div className="form-actions-grid">
+              <button className="btn dark" type="submit" disabled={submitting}>
+                {submitting ? (
+                  <><FiRefreshCw className="spin" /> Sending enquiry...</>
+                ) : (
+                  <><FiSend /> Submit Enquiry</>
+                )}
+              </button>
+              <button className="btn-whatsapp" type="button" onClick={handleWhatsApp}>
+                <FaWhatsapp /> Send via WhatsApp
+              </button>
+            </div>
+
+            <div className="form-sub-note">
+              <span>🔒 Powered by Web3Forms · Direct to Nikhil's inbox</span>
+            </div>
+          </form>
+        )}
       </section>
     </motion.main>
   );
