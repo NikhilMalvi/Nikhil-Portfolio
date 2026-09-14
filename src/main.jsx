@@ -65,7 +65,7 @@ const projects = [
     slug: 'ember-and-mist',
     type: 'Restaurant / Booking',
     category: 'WordPress',
-    image: '/projects/ember-and-mist.jpg',
+    image: '/projects/ember-and-mist.png',
     url: 'https://em.emberandmist.com/',
     desc: 'Polished hospitality website with a booking-focused customer journey.',
     headline: 'HOSPITALITY & DINING',
@@ -796,7 +796,7 @@ function HeroShowcase() {
     {
       tab: 'Online Booking',
       client: 'Ember & Mist',
-      image: '/projects/ember-and-mist.jpg',
+      image: '/projects/ember-and-mist.png',
       category: 'Hospitality & Dining',
       headline: 'SEAMLESS RESERVATIONS',
       sub: 'Mobile-first menu presentation and table reservation flow.',
@@ -831,10 +831,17 @@ function HeroShowcase() {
           <div className="browser-dots">
             <i /><i /><i />
           </div>
-          <div className="hero-url-bar">
+          <a
+            href="https://nikhilportfolio-hazel.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-url-bar"
+            title="Open live site: https://nikhilportfolio-hazel.vercel.app/"
+          >
             <span>🔒</span>
-            <small>nikhilmalviya.dev/{current.client.toLowerCase()}</small>
-          </div>
+            <small>nikhilportfolio-hazel.vercel.app</small>
+            <FiExternalLink className="hero-url-ext-icon" />
+          </a>
           <span className="hero-pill-badge">{current.metric}</span>
         </div>
 
@@ -862,7 +869,19 @@ function HeroShowcase() {
           )}
           <div className="hero-preview-top">
             <span className="hero-client-name">{current.client}</span>
-            <span className="hero-cat-pill">{current.category}</span>
+            <div className="hero-preview-top-actions">
+              <span className="hero-cat-pill">{current.category}</span>
+              <a
+                href="https://nikhilportfolio-hazel.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-live-badge"
+                title="Open live site: https://nikhilportfolio-hazel.vercel.app/"
+              >
+                <span>Live Site</span>
+                <FiArrowUpRight />
+              </a>
+            </div>
           </div>
 
           <div className="hero-preview-center">
