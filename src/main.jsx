@@ -229,25 +229,25 @@ const services = [
   {
     icon: FiCode,
     title: 'Static Websites',
-    price: 'From ₹10,000',
+    price: '₹7,000 – ₹10,000',
     typeParam: 'Static Website',
-    budgetParam: '₹5K – ₹10K',
+    budgetParam: '₹7K – ₹10K',
     desc: 'Fast, responsive websites for portfolios, local businesses, campaigns and simple service brands.'
   },
   {
     icon: FaWordpress,
     title: 'WordPress Websites',
-    price: 'From ₹20,000',
+    price: '₹15,000 – ₹20,000',
     typeParam: 'WordPress Website',
-    budgetParam: '₹10K – ₹20K',
+    budgetParam: '₹15K – ₹20K',
     desc: 'Editable business websites built with WordPress and Elementor, tailored to your brand.'
   },
   {
     icon: FiShoppingBag,
     title: 'E-Commerce',
-    price: 'From ₹35,000+',
+    price: '₹25,000 – ₹35,000+',
     typeParam: 'E-Commerce Website',
-    budgetParam: '₹35K+',
+    budgetParam: '₹25K – ₹35K+',
     desc: 'WooCommerce stores with products, variations, cart, checkout and essential store setup.'
   },
   {
@@ -255,7 +255,7 @@ const services = [
     title: 'Website Redesign',
     price: 'Custom quote',
     typeParam: 'Website Redesign',
-    budgetParam: '₹10K – ₹20K',
+    budgetParam: '₹15K – ₹20K',
     desc: 'Transform an outdated website into a cleaner, more modern and mobile-friendly experience.'
   },
   {
@@ -263,7 +263,7 @@ const services = [
     title: 'Domain & Hosting',
     price: 'Setup service',
     typeParam: 'WordPress Website',
-    budgetParam: '₹5K – ₹10K',
+    budgetParam: '₹7K – ₹10K',
     desc: 'Domain connection, hosting setup, DNS, WordPress installation and launch assistance.'
   },
   {
@@ -271,7 +271,7 @@ const services = [
     title: 'Website Maintenance',
     price: 'From ₹2,000/mo',
     typeParam: 'Maintenance',
-    budgetParam: '₹5K – ₹10K',
+    budgetParam: '₹7K – ₹10K',
     desc: 'Updates, small fixes, content changes, backups and ongoing technical support.'
   }
 ];
@@ -279,11 +279,11 @@ const services = [
 const packages = [
   {
     name: 'Starter',
-    price: '₹10,000',
+    price: '₹7,000 – ₹10,000',
     advance: '₹2,000',
     label: 'Simple & effective',
     typeParam: 'Static Website',
-    budgetParam: '₹5K – ₹10K',
+    budgetParam: '₹7K – ₹10K',
     features: [
       'Up to 5 pages',
       'Responsive design (Mobile / Tablet)',
@@ -297,11 +297,11 @@ const packages = [
   },
   {
     name: 'Business',
-    price: '₹20,000',
+    price: '₹15,000 – ₹20,000',
     advance: '₹5,000',
     label: 'Most popular',
     typeParam: 'WordPress Website',
-    budgetParam: '₹10K – ₹20K',
+    budgetParam: '₹15K – ₹20K',
     features: [
       'Up to 8–10 pages',
       'WordPress + Elementor CMS',
@@ -317,11 +317,11 @@ const packages = [
   },
   {
     name: 'E-Commerce',
-    price: '₹35,000+',
+    price: '₹25,000 – ₹35,000+',
     advance: '₹8,000',
     label: 'Sell online',
     typeParam: 'E-Commerce Website',
-    budgetParam: '₹35K+',
+    budgetParam: '₹25K – ₹35K+',
     features: [
       'Full WooCommerce online store',
       'Product categories, swatches & variations',
@@ -339,7 +339,7 @@ const packages = [
 
 const faqs = [
   ['Do you provide domain and hosting?', 'Domain and hosting charges are extra and are not included in the Starter, Business, or E-Commerce packages. I guide you to choose, purchase, and connect your domain and hosting directly with reliable providers so you maintain 100% ownership.'],
-  ['How does the advance payment work?', 'The project officially begins after the package advance is received: ₹2,000 for Starter, ₹5,000 for Business, and ₹8,000+ for E-Commerce. The remaining amount is paid upon project completion before final live launch.'],
+  ['How does the advance payment work?', 'The project officially begins after the package advance is received: ₹2,000 for Starter (₹7,000–₹10,000), ₹5,000 for Business (₹15,000–₹20,000), and ₹8,000+ for E-Commerce (₹25,000–₹35,000+). The remaining amount is paid upon project completion before final live launch.'],
   ['Can you redesign my existing website?', 'Yes. Website redesign is available as a dedicated service. I review your existing pages, keep your SEO juice and content intact, and craft a substantially faster, more modern visual interface.'],
   ['Do you work with WordPress and WooCommerce?', 'Yes. WordPress, Elementor Pro, Advanced Custom Fields (ACF), and WooCommerce are my primary development specializations, backed by clean PHP, HTML5, CSS3, and JavaScript.'],
   ['What do I need to provide before starting?', 'Typically your logo, high-resolution imagery, text content for key pages, business contact details, and any reference sites you like. If you need help with text or layouts, I provide templates to guide you.'],
@@ -1727,10 +1727,10 @@ function Contact() {
                 onChange={handleChange}
               >
                 <option value="" disabled>Select your budget</option>
-                <option value="₹5K – ₹10K">₹5K – ₹10K</option>
-                <option value="₹10K – ₹20K">₹10K – ₹20K</option>
-                <option value="₹20K – ₹35K">₹20K – ₹35K</option>
-                <option value="₹35K+">₹35K+</option>
+                <option value="₹7K – ₹10K">₹7K – ₹10K (Starter)</option>
+                <option value="₹15K – ₹20K">₹15K – ₹20K (Business)</option>
+                <option value="₹25K – ₹35K+">₹25K – ₹35K+ (E-Commerce)</option>
+                <option value="Custom / Other">Custom / Other</option>
                 <option value="Not sure">Not sure</option>
               </select>
             </label>

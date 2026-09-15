@@ -1724,7 +1724,7 @@ h1, h2, h3, p { margin-top: 0; }
 }
 .price-card .kicker { color: #888; font-size: 11px; }
 .price-card h2 { font-size: 34px; margin: 12px 0 4px; letter-spacing: -0.04em; }
-.price { font-size: 44px; font-weight: 800; letter-spacing: -0.05em; }
+.price { font-size: clamp(26px, 2.4vw, 36px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.15; }
 .advance { font-size: 12px; color: #777; margin-top: 8px; font-family: 'Space Mono', monospace; }
 .advance b { color: var(--orange); }
 .divider { height: 1px; background: var(--line); margin: 25px 0; }
