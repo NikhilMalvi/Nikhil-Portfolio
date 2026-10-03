@@ -554,7 +554,7 @@ function Footer() {
           <Logo />
           <p>Freelance WordPress developer building modern websites for small businesses, startups and local brands.</p>
           <div className="socials">
-            <a href="https://www.instagram.com/nik.malvi.2002/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a href="https://www.instagram.com/webexplorwithnikhil/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <FaInstagram />
             </a>
             <a href="https://www.linkedin.com/in/nikhil-malviya-488210332/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
@@ -574,7 +574,7 @@ function Footer() {
         </div>
         <div>
           <small>Connect</small>
-          <a href="mailto:nikhilmalvi845@gmail.com"><FiMail /> Email</a>
+          <a href="mailto:webexplorwithnikhil@gmail.com"><FiMail /> Email</a>
           <a href="https://wa.me/916352887015" target="_blank" rel="noopener noreferrer"><FaWhatsapp /> WhatsApp</a>
           <a href="https://www.linkedin.com/in/nikhil-malviya-488210332/" target="_blank" rel="noopener noreferrer"><FaLinkedinIn /> LinkedIn</a>
         </div>
@@ -1551,7 +1551,7 @@ function Contact() {
 
     try {
       const formData = new FormData(e.target);
-      formData.append('access_key', '9dd05651-4c0f-45f7-a59c-d3ffac554218');
+      formData.append('access_key', '45045303-0293-4c7b-8be9-4f9aadfb8f03');
       formData.append('subject', `Website Enquiry from ${formState.name || 'New Client'}${packageParam ? ` [${packageParam} Package]` : ''}`);
       formData.append('from_name', 'Nikhil Malvi Portfolio');
       if (!formData.get('message')) {
@@ -1603,9 +1603,9 @@ function Contact() {
           <h1>Tell me<br />what you’re<br /><em>building.</em></h1>
           <p>Send a few details about your business and the website you need. I’ll review the enquiry and get back to you promptly.</p>
           <div className="contact-links">
-            <a href="mailto:nikhilmalvi845@gmail.com"><FiMail /> nikhilmalvi845@gmail.com</a>
+            <a href="mailto:webexplorwithnikhil@gmail.com"><FiMail /> webexplorwithnikhil@gmail.com</a>
             <a href="https://wa.me/916352887015" target="_blank" rel="noopener noreferrer"><FaWhatsapp /> +91 63528 87015</a>
-            <a href="https://www.instagram.com/nik.malvi.2002/" target="_blank" rel="noopener noreferrer"><FaInstagram /> Instagram</a>
+            <a href="https://www.instagram.com/webexplorwithnikhil/" target="_blank" rel="noopener noreferrer"><FaInstagram /> Instagram</a>
           </div>
         </div>
 
