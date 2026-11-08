@@ -11,7 +11,7 @@ import {
   FiExternalLink, FiMail, FiGlobe, FiRefreshCw, FiSend,
   FiZap, FiCopy, FiCheckCircle, FiArrowLeft, FiClock,
   FiAward, FiLayers, FiCpu, FiMessageSquare, FiActivity,
-  FiAlertCircle
+  FiAlertCircle, FiLock
 } from 'react-icons/fi';
 import {
   FaInstagram, FaLinkedinIn, FaGithub, FaWhatsapp, FaWordpress, FaStar
@@ -587,147 +587,35 @@ function Footer() {
   );
 }
 
-function MockFeatureBar({ p }) {
-  if (p.category === 'E-Commerce' || p.slug === 'pixsster' || p.slug === 'emberbelle' || p.slug === 'jain-sweets') {
-    const price = p.slug === 'emberbelle' ? '₹4,999' : p.slug === 'jain-sweets' ? '₹450' : '₹1,299';
-    const tag = p.slug === 'emberbelle' ? 'Fine Jewellery' : p.slug === 'jain-sweets' ? 'Pure Ghee' : 'Best Seller';
-    return (
-      <div className="mock-feature-bar ecommerce-bar">
-        <div className="mock-prod-pill">
-          <span className="prod-badge">{tag}</span>
-          <div className="mock-prod-info">
-            <b>Featured Item</b>
-            <span className="mock-stars">★★★★★</span>
-          </div>
-          <div className="mock-prod-price">{price}</div>
-        </div>
-      </div>
-    );
-  }
-
-  if (p.slug === 'ember-and-mist') {
-    return (
-      <div className="mock-feature-bar dining-bar">
-        <div className="mock-dining-info">
-          <span className="mock-dining-tag">★ 4.9 (420+ Reviews)</span>
-          <b>Table Booking · Instant Confirmation</b>
-        </div>
-        <div className="mock-dining-action">
-          <span>Reserve Online <FiArrowRight /></span>
-        </div>
-      </div>
-    );
-  }
-
-  if (p.slug === 'orange-electrodes' || p.slug === 'laddha-renewables') {
-    const label = p.slug === 'laddha-renewables' ? 'Solar ROI Calculator' : 'ISO 9001:2015 Spec';
-    const sub = p.slug === 'laddha-renewables' ? '⚡ 50+ MW Capacity' : 'High-Purity Graphite';
-    return (
-      <div className="mock-feature-bar b2b-bar">
-        <div className="mock-b2b-info">
-          <span className="mock-spec-tag">{label}</span>
-          <b>{sub}</b>
-        </div>
-        <div className="mock-b2b-action">
-          <span>Request RFQ Quote <FiArrowRight /></span>
-        </div>
-      </div>
-    );
-  }
-
-  if (p.slug === 'jv-healthcare') {
-    return (
-      <div className="mock-feature-bar health-bar">
-        <div className="mock-health-info">
-          <span className="mock-health-tag">Verified Specialists</span>
-          <b>Clinic Locator · Ahmedabad</b>
-        </div>
-        <div className="mock-health-action">
-          <span>Book Consultation <FiArrowRight /></span>
-        </div>
-      </div>
-    );
-  }
-
-  if (p.slug === 'jignesh-sheth') {
-    return (
-      <div className="mock-feature-bar audio-bar">
-        <div className="mock-audio-info">
-          <div className="waveform-bars">
-            <span /><span /><span /><span /><span />
-          </div>
-          <b>Now Streaming · Studio Master</b>
-        </div>
-        <div className="mock-audio-action">
-          <span>Tour Dates <FiArrowRight /></span>
-        </div>
-      </div>
-    );
-  }
-
-  // Default / Agency (Logosster, Jazz Deep)
-  return (
-    <div className="mock-feature-bar agency-bar">
-      <div className="mock-agency-info">
-        <span className="mock-agency-tag">Sub-1s Load · 99 PageSpeed</span>
-        <b>ACF Dynamic Architecture</b>
-      </div>
-      <div className="mock-agency-action">
-        <span>Explore Work <FiArrowRight /></span>
-      </div>
-    </div>
-  );
-}
-
 function ProjectVisual({ p, large = false }) {
   const domain = getProjectDomain(p);
   return (
-    <div className={`project-visual ${p.tone} ${large ? 'large' : ''} ${p.image ? 'has-screenshot' : ''}`}>
+    <div className={`project-visual ${large ? 'large' : ''}`}>
       <div className="browser-top">
-        <div className="browser-dots">
-          <i /><i /><i />
+        <div className="browser-dots" aria-hidden="true">
+          <span /><span /><span />
         </div>
         <div className="browser-address">
-          <span className="lock-icon">🔒</span>
+          <FiLock className="browser-lock-icon" />
           <small>{domain}</small>
         </div>
-        <span className="live-status-pill">LIVE</span>
+        <span className="live-status-badge">Live</span>
       </div>
-      <div className="mock-page">
+      <div className="browser-body">
         {p.image ? (
           <div className="project-screenshot-wrap">
             <img
               src={p.image}
-              alt={`${p.name} live website screenshot`}
+              alt={`${p.name} website preview`}
               className="project-screenshot-img"
               loading="lazy"
             />
-            {!large && (
-              <div className="project-screenshot-overlay">
-                <div className="project-screenshot-meta">
-                  <span className="screenshot-type-badge">{p.type}</span>
-                  <h4>{p.headline || p.name}</h4>
-                </div>
-                <span className="screenshot-cta-pill">
-                  View Case Study <FiArrowUpRight />
-                </span>
-              </div>
-            )}
           </div>
         ) : (
-          <>
-            <div className="mock-nav">
-              <span className="mock-brand-name">{p.name}</span>
-              <span className="mock-nav-items">HOME · ABOUT · SERVICES · CONTACT</span>
-            </div>
-            <div className="mock-hero">
-              <small>{p.type}</small>
-              <strong>{p.headline || p.name}</strong>
-              <em>{p.sub || 'Build a stronger digital presence.'}</em>
-              <b className="mock-cta-badge">EXPLORE <FiArrowUpRight /></b>
-            </div>
-            <MockFeatureBar p={p} />
-          </>
+          <div className="project-placeholder-wrap">
+            <h4>{p.name}</h4>
+            <p>{p.desc}</p>
+          </div>
         )}
       </div>
     </div>
@@ -753,23 +641,32 @@ function Section({ children, className = '' }) {
 function SectionHead({ eyebrow, title, text }) {
   return (
     <div className="section-head">
-      <span className="kicker">{eyebrow}</span>
+      {eyebrow && <span className="section-eyebrow">{eyebrow}</span>}
       <h2>{title}</h2>
       {text && <p>{text}</p>}
     </div>
   );
 }
 
-function Marquee() {
+function TechStrip() {
+  const items = [
+    'Custom WordPress',
+    'WooCommerce Stores',
+    'Elementor Pro',
+    'Advanced Custom Fields',
+    'Custom PHP & CSS',
+    'Speed Optimization',
+    'DNS & Hosting Setup'
+  ];
   return (
-    <div className="marquee" aria-label="Core skills and technologies">
-      <div className="marquee-track">
-        <span>WORDPRESS <b>✦</b> ELEMENTOR <b>✦</b> WOOCOMMERCE <b>✦</b> RESPONSIVE DESIGN <b>✦</b> ACF <b>✦</b> SPEED OPTIMIZATION <b>✦</b> CUSTOM PHP <b>✦</b> CLEAN CODE <b>✦</b></span>
-        <span>WORDPRESS <b>✦</b> ELEMENTOR <b>✦</b> WOOCOMMERCE <b>✦</b> RESPONSIVE DESIGN <b>✦</b> ACF <b>✦</b> SPEED OPTIMIZATION <b>✦</b> CUSTOM PHP <b>✦</b> CLEAN CODE <b>✦</b></span>
-      </div>
-      <div className="marquee-track" aria-hidden="true">
-        <span>WORDPRESS <b>✦</b> ELEMENTOR <b>✦</b> WOOCOMMERCE <b>✦</b> RESPONSIVE DESIGN <b>✦</b> ACF <b>✦</b> SPEED OPTIMIZATION <b>✦</b> CUSTOM PHP <b>✦</b> CLEAN CODE <b>✦</b></span>
-        <span>WORDPRESS <b>✦</b> ELEMENTOR <b>✦</b> WOOCOMMERCE <b>✦</b> RESPONSIVE DESIGN <b>✦</b> ACF <b>✦</b> SPEED OPTIMIZATION <b>✦</b> CUSTOM PHP <b>✦</b> CLEAN CODE <b>✦</b></span>
+    <div className="tech-strip" aria-label="Core development skills">
+      <div className="container tech-strip-inner">
+        {items.map((item, idx) => (
+          <React.Fragment key={item}>
+            {idx > 0 && <span className="tech-strip-dot" aria-hidden="true" />}
+            <span className="tech-strip-item">{item}</span>
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );
@@ -779,84 +676,66 @@ function HeroShowcase() {
   const [activeTab, setActiveTab] = useState(0);
   const slides = [
     {
-      tab: 'WordPress + ACF',
+      tab: 'Bespoke WordPress',
       client: 'Logosster',
       image: '/projects/logosster.png',
       category: 'Business & Agency',
-      headline: 'DIGITAL IDENTITY & SCALE',
+      headline: 'Digital identity and scale',
       sub: 'Custom ACF post types, sub-second speed, clean typography.',
-      metric: '99/100 PageSpeed',
-      tag: 'Custom Template',
-      bgTone: 'hero-tone-green'
+      slug: 'logosster'
     },
     {
-      tab: 'WooCommerce',
+      tab: 'WooCommerce Store',
       client: 'Pixsster',
       image: '/projects/pixsster.png',
-      category: 'High-Converting Store',
-      headline: 'LIGHTNING FAST CHECKOUT',
-      sub: 'Variations, Razorpay integration, automated order emails.',
-      metric: 'Sub-1s Load Time',
-      tag: 'E-Commerce',
-      bgTone: 'hero-tone-blue'
+      category: 'Online Apparel Store',
+      headline: 'High-converting checkout',
+      sub: 'Variation swatches, payment integration, and fast cart flow.',
+      slug: 'pixsster'
     },
     {
-      tab: 'Online Booking',
+      tab: 'Hospitality / Booking',
       client: 'Ember & Mist',
       image: '/projects/ember-and-mist.png',
       category: 'Hospitality & Dining',
-      headline: 'SEAMLESS RESERVATIONS',
+      headline: 'Interactive reservations',
       sub: 'Mobile-first menu presentation and table reservation flow.',
-      metric: '2x Direct Bookings',
-      tag: 'Booking Flow',
-      bgTone: 'hero-tone-warm'
+      slug: 'ember-and-mist'
     }
   ];
 
   const current = slides[activeTab];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.94 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.18, duration: 0.8 }}
-      className="hero-visual"
-    >
-      <div className="orbit orbit-a" />
-      <div className="orbit orbit-b" />
-
-      {/* Floating Status Badges */}
-      <div className="float-tag tag-one">
-        <span className="status-live-beacon" /> Available for Projects
-      </div>
-      <div className="float-tag tag-two">
-        <FiZap /> 99/100 Google PageSpeed
-      </div>
-
+    <div className="hero-visual">
       <div className="hero-browser-card">
         <div className="hero-browser-top">
-          <div className="browser-dots">
-            <i /><i /><i />
+          <div className="browser-dots" aria-hidden="true">
+            <span /><span /><span />
+          </div>
+          <div className="hero-url-bar">
+            <FiLock className="hero-url-lock" />
+            <span>{current.client.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '')}.com</span>
           </div>
           <a
-            href="https://nikhilportfolio-hazel.vercel.app/"
+            href={projects.find(p => p.slug === current.slug)?.url !== '#' ? projects.find(p => p.slug === current.slug)?.url : `https://nikhilportfolio-hazel.vercel.app/work/${current.slug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hero-url-bar"
-            title="Open live site: https://nikhilportfolio-hazel.vercel.app/"
+            className="hero-live-link"
+            title="Open live project"
           >
-            <span>🔒</span>
-            <small>nikhilportfolio-hazel.vercel.app</small>
-            <FiExternalLink className="hero-url-ext-icon" />
+            <span>Live site</span>
+            <FiArrowUpRight />
           </a>
-          <span className="hero-pill-badge">{current.metric}</span>
         </div>
 
-        {/* Tab Switcher */}
-        <div className="hero-tab-switcher">
+        {/* Segmented Tab Controls */}
+        <div className="hero-tab-switcher" role="tablist">
           {slides.map((s, idx) => (
             <button
               key={s.tab}
+              role="tab"
+              aria-selected={activeTab === idx}
               className={`hero-tab-btn ${activeTab === idx ? 'active' : ''}`}
               onClick={() => setActiveTab(idx)}
               type="button"
@@ -866,67 +745,47 @@ function HeroShowcase() {
           ))}
         </div>
 
-        {/* Slide Content */}
-        <div className={`hero-browser-body ${current.bgTone}`}>
-          {current.image && (
-            <div className="hero-slide-preview-wrap">
-              <img src={current.image} alt={`${current.client} live preview`} className="hero-slide-preview-img" />
-              <div className="hero-slide-gradient-scrim" />
-            </div>
-          )}
-          <div className="hero-preview-top">
-            <span className="hero-client-name">{current.client}</span>
-            <div className="hero-preview-top-actions">
-              <span className="hero-cat-pill">{current.category}</span>
-              <a
-                href="https://nikhilportfolio-hazel.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-live-badge"
-                title="Open live site: https://nikhilportfolio-hazel.vercel.app/"
-              >
-                <span>Live Site</span>
-                <FiArrowUpRight />
-              </a>
-            </div>
+        {/* Real Screenshot Viewport */}
+        <div className="hero-browser-body">
+          <div className="hero-slide-preview-wrap">
+            <img
+              src={current.image}
+              alt={`${current.client} live preview`}
+              className="hero-slide-preview-img"
+            />
           </div>
-
-          <div className="hero-preview-center">
-            <h4>{current.headline}</h4>
-            <p>{current.sub}</p>
-          </div>
-
-          <div className="hero-preview-bottom">
-            <div className="hero-metric-box">
-              <span className="metric-label">PERFORMANCE BENCHMARK</span>
-              <strong className="metric-val">{current.metric}</strong>
+          <div className="hero-preview-meta">
+            <div>
+              <span className="hero-cat-tag">{current.category}</span>
+              <h4>{current.client}</h4>
+              <p>{current.sub}</p>
             </div>
-            <Link to={`/work/${slides[activeTab].client.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')}`} className="hero-preview-btn">
-              Explore Case Study <FiArrowUpRight />
+            <Link to={`/work/${current.slug}`} className="hero-preview-btn">
+              Case study <FiArrowRight />
             </Link>
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-function BentoStats() {
+function CapabilitiesSection() {
   return (
-    <Section className="bento-stats section-pad">
+    <Section className="capabilities-section section-pad">
       <div className="container">
         <SectionHead
-          eyebrow="Proven Impact"
-          title={<>Built for performance,<br /><em>designed to convert.</em></>}
+          eyebrow="Standards & Delivery"
+          title="Built for reliability, speed, and clean handover"
           text="Every website is developed with clean code, sub-second loading speed, and direct communication throughout."
         />
-        <div className="bento-grid">
-          <div className="bento-card bento-main">
-            <span className="bento-kicker">DELIVERED WORK</span>
-            <div className="bento-big-number">25+</div>
-            <h3>Websites Launched Personally</h3>
-            <p>From custom WordPress business sites and WooCommerce stores to industrial catalogues and restaurant bookings.</p>
-            <div className="bento-tech-pills">
+        <div className="capabilities-grid">
+          <div className="cap-card cap-main">
+            <span className="cap-kicker">01 // Delivered work</span>
+            <div className="cap-big-number">25+</div>
+            <h3>Websites launched personally</h3>
+            <p>From custom WordPress business sites and WooCommerce stores to industrial catalogues and restaurant reservations.</p>
+            <div className="cap-tech-pills">
               <span>WordPress</span>
               <span>WooCommerce</span>
               <span>Elementor Pro</span>
@@ -935,34 +794,32 @@ function BentoStats() {
             </div>
           </div>
 
-          <div className="bento-card">
-            <div className="bento-icon-wrap"><FiZap /></div>
-            <span className="bento-kicker">SPEED BENCHMARK</span>
-            <div className="bento-stat-number">&lt; 1.2s</div>
-            <h4>Sub-Second Page Loads</h4>
-            <p>Asset optimization, lazy loading, WebP imagery, and clean code for high Google PageSpeed scores.</p>
+          <div className="cap-card">
+            <span className="cap-kicker">02 // Core Web Vitals</span>
+            <div className="cap-stat-number">&lt; 1.2s</div>
+            <h4>Sub-second page speeds</h4>
+            <p>Asset optimization, lazy loading, WebP imagery, and clean template code for high Google PageSpeed scores.</p>
           </div>
 
-          <div className="bento-card">
-            <div className="bento-icon-wrap"><FiCheckCircle /></div>
-            <span className="bento-kicker">COLLABORATION</span>
-            <div className="bento-stat-number">100%</div>
-            <h4>Direct Communication</h4>
+          <div className="cap-card">
+            <span className="cap-kicker">03 // Collaboration</span>
+            <div className="cap-stat-number">1:1</div>
+            <h4>Direct developer communication</h4>
             <p>Direct contact with Nikhil via WhatsApp and email. No agency layers or miscommunicated instructions.</p>
           </div>
 
-          <div className="bento-card bento-status-card">
-            <div className="bento-status-left">
-              <div className="bento-availability-badge">
-                <span className="bento-pulse" />
-                <span>Available for New Projects</span>
+          <div className="cap-card cap-status-card">
+            <div className="cap-status-left">
+              <div className="cap-availability-badge">
+                <span className="cap-status-dot" aria-hidden="true" />
+                <span>Available for new projects</span>
               </div>
-              <h4>Ready to Build Your Website?</h4>
+              <h4>Ready to build your website?</h4>
               <p>Currently booking client builds, redesigns, and WooCommerce stores with direct turnaround.</p>
             </div>
-            <div className="bento-status-right">
-              <Link to="/contact" className="bento-action-link">
-                Start your project <FiArrowUpRight />
+            <div className="cap-status-right">
+              <Link to="/contact" className="cap-action-link">
+                Start your project <FiArrowRight />
               </Link>
             </div>
           </div>
@@ -978,37 +835,24 @@ function TestimonialsSection() {
       <div className="container">
         <SectionHead
           eyebrow="Client Testimonials"
-          title={<>Trusted by founders,<br /><em>startups & local brands.</em></>}
+          title="Trusted by founders, startups & local brands"
           text="Authentic feedback from clients whose websites were built, optimized, and launched personally."
         />
         <div className="testimonials-grid">
           {testimonials.map((t) => (
-            <motion.div
-              key={t.name}
-              className="testimonial-card"
-              whileHover={{ y: -6 }}
-              transition={{ duration: 0.22 }}
-            >
+            <div className="testimonial-card" key={t.name}>
               <div className="testimonial-top">
-                <div className="testimonial-stars" aria-label={`${t.rating} out of 5 stars`}>
-                  {[...Array(t.rating)].map((_, i) => (
-                    <FaStar key={i} />
-                  ))}
-                </div>
                 <span className="testimonial-tag">{t.type}</span>
+                {t.metric && <span className="testimonial-metric-badge">{t.metric}</span>}
               </div>
               <p className="testimonial-quote">“{t.quote}”</p>
               <div className="testimonial-footer">
                 <div className="author-info">
-                  <div className="author-avatar">{t.name.charAt(0)}</div>
-                  <div>
-                    <strong>{t.name}</strong>
-                    <small>{t.role}</small>
-                  </div>
+                  <strong>{t.name}</strong>
+                  <small>{t.role}</small>
                 </div>
-                <span className="testimonial-metric-badge">{t.metric}</span>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -1021,40 +865,38 @@ function Home() {
   return (
     <motion.main variants={pageVariants} initial="initial" animate="animate" exit="exit" className="page-transition-wrap">
       <section className="hero">
-        <div className="hero-glow glow-a" />
-        <div className="hero-glow glow-b" />
         <div className="container hero-grid">
           <div className="hero-copy">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="eyebrow">
-              <span className="pulse" /> Freelance WordPress Developer · Ahmedabad, India
+              Nikhil Malviya · Freelance WordPress Developer · Ahmedabad, India
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 22 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
-              Websites that make<br /><em>businesses</em> look better.
+              Bespoke WordPress websites built for businesses that care about craft.
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16, duration: 0.65 }}>
-              I’m Nikhil Malviya, a freelance WordPress developer creating responsive, polished websites for small businesses, startups and local brands.
+              I develop custom WordPress sites, WooCommerce stores, and high-performance business websites with clean code, direct turnaround, and zero agency overhead.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }} className="hero-actions">
               <Link className="btn dark" to="/pricing">View packages <FiArrowUpRight /></Link>
-              <Link className="btn light" to="/work">Explore my work <FiArrowUpRight /></Link>
+              <Link className="btn outline" to="/work">Explore my work <FiArrowUpRight /></Link>
             </motion.div>
             <div className="hero-note">
               <span><FiCheck /> 25+ websites created</span>
-              <span><FiCheck /> 2+ years WordPress</span>
-              <span><FiCheck /> Direct communication</span>
+              <span><FiCheck /> Direct developer contact</span>
+              <span><FiCheck /> Transparent pricing</span>
             </div>
           </div>
           <HeroShowcase />
         </div>
       </section>
 
-      <Marquee />
+      <TechStrip />
 
       <Section className="featured section-pad">
         <div className="container">
           <SectionHead
-            eyebrow="Selected work"
-            title={<>25+ websites.<br /><em>Built personally.</em></>}
+            eyebrow="Selected Work"
+            title="25+ websites built personally"
             text="Business websites, e-commerce stores, local brands and personal projects. A selected set of work is shown below."
           />
           <div className="featured-grid">
@@ -1062,15 +904,23 @@ function Home() {
               <motion.div
                 key={p.slug}
                 className={`featured-card card-${i + 1}`}
-                whileHover={{ y: -6 }}
-                transition={{ duration: 0.22 }}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.18 }}
               >
                 <Link to={`/work/${p.slug}`}>
                   <ProjectVisual p={p} />
                   <div className="project-meta">
-                    <span>{String(i + 1).padStart(2, '0')} / {p.category.toUpperCase()}</span>
-                    <h3>{p.name}</h3>
-                    <FiArrowUpRight />
+                    <div className="project-meta-head">
+                      <div>
+                        <span className="project-cat">{p.category}</span>
+                        <h3>{p.name}</h3>
+                      </div>
+                      <span className="project-arrow"><FiArrowUpRight /></span>
+                    </div>
+                    <p>{p.desc}</p>
+                    <div className="project-tags">
+                      {p.tags.slice(0, 3).map(t => <span key={t}>{t}</span>)}
+                    </div>
                   </div>
                 </Link>
               </motion.div>
@@ -1085,22 +935,22 @@ function Home() {
       <Section className="services-preview section-pad">
         <div className="container">
           <SectionHead
-            eyebrow="Services"
-            title={<>Everything you need to<br /><em>launch confidently.</em></>}
+            eyebrow="Capabilities"
+            title="Everything you need to launch confidently"
             text="From a simple business website to a complete WooCommerce store, I handle the website build and launch workflow."
           />
           <div className="service-grid">
             {services.map((s, i) => {
               const Icon = s.icon;
               return (
-                <motion.div className="service-card" key={s.title} whileHover={{ y: -5 }}>
+                <div className="service-card" key={s.title}>
                   <div className="service-icon"><Icon /></div>
                   <span className="service-num">0{i + 1}</span>
                   <h3>{s.title}</h3>
                   <p>{s.desc}</p>
                   <strong>{s.price}</strong>
                   <Link to={`/contact?service=${encodeURIComponent(s.title)}`}>Explore <FiArrowUpRight /></Link>
-                </motion.div>
+                </div>
               );
             })}
           </div>
@@ -1110,15 +960,15 @@ function Home() {
       <Section className="process section-pad">
         <div className="container split">
           <div>
-            <span className="kicker">Process</span>
-            <h2>Simple, clear, and<br /><em>built around your business.</em></h2>
+            <span className="section-eyebrow">Process</span>
+            <h2>Simple, clear, and structured around your business.</h2>
             <p>You talk directly with the person designing and developing your website — no agency layers or miscommunication.</p>
           </div>
           <div className="steps">
             {processSteps.map((s) => (
               <div className="step" key={s.num}>
                 <div className="step-header">
-                  <span>{s.num}</span>
+                  <span className="step-index">{s.num}</span>
                   <span className="step-time-badge"><FiClock /> {s.time}</span>
                 </div>
                 <strong>{s.title}</strong>
@@ -1132,13 +982,13 @@ function Home() {
         </div>
       </Section>
 
-      <BentoStats />
+      <CapabilitiesSection />
 
       <TestimonialsSection />
 
       <Section className="faq-section section-pad">
         <div className="container">
-          <SectionHead eyebrow="FAQ" title="Before we start." />
+          <SectionHead eyebrow="FAQ" title="Frequently asked questions" />
           <FAQList />
         </div>
       </Section>
@@ -1185,10 +1035,10 @@ function CTA() {
     <section className="cta-band">
       <div className="container cta-inner">
         <div>
-          <span className="kicker">Start a project</span>
-          <h2>Have a website<br /><em>in mind?</em></h2>
+          <span className="section-eyebrow">Start a project</span>
+          <h2>Have a website in mind?</h2>
         </div>
-        <Link className="btn lime" to="/contact">Tell me about it <FiArrowUpRight /></Link>
+        <Link className="btn cta-btn" to="/contact">Start a conversation <FiArrowRight /></Link>
       </div>
     </section>
   );
@@ -1214,8 +1064,8 @@ function Work() {
     <motion.main variants={pageVariants} initial="initial" animate="animate" exit="exit" className="page-transition-wrap">
       <section className="page-hero">
         <div className="container">
-          <span className="kicker">Selected work</span>
-          <h1>25+ websites.<br /><em>Built personally.</em></h1>
+          <span className="section-eyebrow">Portfolio</span>
+          <h1>25+ websites built personally</h1>
           <p>Business websites, e-commerce stores, local brands and personal projects. Filter through selected case studies below.</p>
         </div>
       </section>
@@ -1241,22 +1091,21 @@ function Work() {
                 className="work-card"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.03, duration: 0.3 }}
+                transition={{ delay: i * 0.03, duration: 0.25 }}
               >
                 <Link to={`/work/${p.slug}`}>
                   <ProjectVisual p={p} />
                   <div className="work-meta">
-                    <span>{p.type}</span>
+                    <span className="work-type">{p.type}</span>
                     <h3>{p.name}</h3>
                     <p>{p.desc}</p>
-                    <strong>Explore <FiArrowUpRight /></strong>
+                    <strong className="work-link">Explore <FiArrowUpRight /></strong>
                   </div>
                 </Link>
               </motion.article>
             ))}
           </motion.div>
           <div className="portfolio-note">
-            <FiStar />
             <div>
               <strong>25+ projects delivered</strong>
               <p>These are selected client and personal projects. Each represents a tailored solution designed for real business growth.</p>
@@ -1274,8 +1123,8 @@ function Services() {
     <motion.main variants={pageVariants} initial="initial" animate="animate" exit="exit" className="page-transition-wrap">
       <section className="page-hero compact">
         <div className="container">
-          <span className="kicker">Services</span>
-          <h1>Build it right.<br /><em>Launch it clean.</em></h1>
+          <span className="section-eyebrow">Services</span>
+          <h1>Build it right, launch it clean</h1>
           <p>Practical website development focused on responsive design, WordPress, WooCommerce and a smooth launch.</p>
         </div>
       </section>
@@ -1314,8 +1163,8 @@ function Pricing() {
     <motion.main variants={pageVariants} initial="initial" animate="animate" exit="exit" className="page-transition-wrap">
       <section className="page-hero pricing-head">
         <div className="container">
-          <span className="kicker">Packages</span>
-          <h1>Clear pricing.<br /><em>No mystery scope.</em></h1>
+          <span className="section-eyebrow">Packages</span>
+          <h1>Clear pricing with transparent scope</h1>
           <p>Choose a starting package and add only what your project actually needs. Domain and hosting charges are extra and not included in packages.</p>
         </div>
       </section>
@@ -1330,7 +1179,7 @@ function Pricing() {
       </Section>
       <Section className="addons-section">
         <div className="container">
-          <SectionHead eyebrow="Add-ons" title={<>Need more? Add only what<br /><em>you need.</em></>} />
+          <SectionHead eyebrow="Add-ons" title="Need more? Add only what you need" />
           <div className="addons">
             {[
               ['Extra page', '₹1,000–₹2,000'],
@@ -1356,7 +1205,7 @@ function Pricing() {
 function PriceCard({ p }) {
   return (
     <article className={`price-card ${p.featured ? 'featured' : ''}`}>
-      <span className="kicker">{p.label}</span>
+      <span className="package-label">{p.label}</span>
       <h2>{p.name}</h2>
       <div className="price">{p.price}</div>
       <div className="advance">Advance to start <b>{p.advance}</b></div>
@@ -1375,9 +1224,9 @@ function PriceCard({ p }) {
           );
         })}
       </ul>
-      {p.featured && <span className="popular">MOST POPULAR</span>}
+      {p.featured && <span className="package-recommended">Recommended for growing businesses</span>}
       <Link
-        className={`btn ${p.featured ? 'light' : 'outline'}`}
+        className={`btn ${p.featured ? 'dark' : 'outline'}`}
         to={`/contact?package=${encodeURIComponent(p.name)}`}
       >
         Choose {p.name} <FiArrowRight />
@@ -1392,7 +1241,7 @@ function TechEcosystem() {
       <div className="container">
         <SectionHead
           eyebrow="Tech Stack & Tools"
-          title={<>Tools I use to build<br /><em>dependable websites.</em></>}
+          title="Tools I use to build dependable websites"
           text="A carefully chosen stack focused on visual flexibility, clean code, lightning speed, and seamless handover."
         />
         <div className="tech-ecosystem-grid">
@@ -1429,16 +1278,16 @@ function About() {
     <motion.main variants={pageVariants} initial="initial" animate="animate" exit="exit" className="page-transition-wrap">
       <section className="page-hero compact">
         <div className="container">
-          <span className="kicker">About</span>
-          <h1>25+ websites.<br /><em>One person behind them.</em></h1>
+          <span className="section-eyebrow">About</span>
+          <h1>25+ websites. One person behind them</h1>
           <p>Front-end developer and WordPress specialist based in Ahmedabad, focused on creating useful, responsive and business-ready websites.</p>
         </div>
       </section>
       <Section className="about-section">
         <div className="container about-grid">
           <div>
-            <span className="big-num">01</span>
-            <h2>Built across business, e-commerce, local and personal-brand projects.</h2>
+            <span className="big-num">01 // Story</span>
+            <h2>Built across business, e-commerce, local and personal-brand projects</h2>
           </div>
           <div className="about-copy">
             <p>My main focus is WordPress. I work with Elementor, WooCommerce, ACF, HTML, CSS and JavaScript, with custom PHP when a project needs more than a page builder.</p>
@@ -1566,7 +1415,7 @@ function Contact() {
       const data = await response.json();
       if (data.success) {
         setResult('success');
-        setResultMsg('Thank you! Your enquiry has been sent directly to Nikhil. I will review your requirements and get back to you promptly.');
+        setResultMsg('Thank you. Your enquiry has been sent directly to Nikhil. I will review your requirements and reply promptly.');
         setFormState({
           name: '',
           email: '',
@@ -1599,9 +1448,9 @@ function Contact() {
     <motion.main variants={pageVariants} initial="initial" animate="animate" exit="exit" className="page-transition-wrap">
       <section className="contact-page container">
         <div className="contact-intro">
-          <span className="kicker">Start a project</span>
-          <h1>Tell me<br />what you’re<br /><em>building.</em></h1>
-          <p>Send a few details about your business and the website you need. I’ll review the enquiry and get back to you promptly.</p>
+          <span className="section-eyebrow">Start a project</span>
+          <h1>Tell me what you are building</h1>
+          <p>Send a few details about your business and the website you need. I will review the enquiry and get back to you promptly.</p>
           <div className="contact-links">
             <a href="mailto:webexplorwithnikhil@gmail.com"><FiMail /> webexplorwithnikhil@gmail.com</a>
             <a href="https://wa.me/916352887015" target="_blank" rel="noopener noreferrer"><FaWhatsapp /> +91 63528 87015</a>
@@ -1614,7 +1463,7 @@ function Contact() {
             <div className="form-success-icon">
               <FiCheckCircle />
             </div>
-            <h3>Enquiry Sent Successfully!</h3>
+            <h3>Enquiry sent</h3>
             <p>{resultMsg}</p>
             <div className="form-success-actions">
               <button
@@ -1625,14 +1474,14 @@ function Contact() {
                   setResultMsg('');
                 }}
               >
-                Send Another Message
+                Send another message
               </button>
               <button
                 type="button"
                 className="btn-whatsapp"
                 onClick={handleWhatsApp}
               >
-                <FaWhatsapp /> Chat on WhatsApp Now
+                <FaWhatsapp /> Chat on WhatsApp now
               </button>
             </div>
           </div>
@@ -1641,7 +1490,7 @@ function Contact() {
             {hasPrefill && (
               <div className="prefill-badge">
                 <span>
-                  🎯 Selected intent: {packageParam ? `${packageParam} Package` : serviceParam ? serviceParam : `Project: ${projectParam}`}
+                  Selected intent: {packageParam ? `${packageParam} Package` : serviceParam ? serviceParam : `Project: ${projectParam}`}
                 </span>
                 <button type="button" onClick={clearSelection}>Reset</button>
               </div>
@@ -1761,7 +1610,7 @@ function Contact() {
             </div>
 
             <div className="form-sub-note">
-              <span>🔒 Powered by Web3Forms · Direct to Nikhil's inbox</span>
+              <span>Powered by Web3Forms · Direct to Nikhil's inbox</span>
             </div>
           </form>
         )}
@@ -1789,7 +1638,7 @@ function CaseStudy() {
       <section className="case-hero">
         <div className="container">
           <Link className="back" to="/work"><FiArrowLeft /> Back to work</Link>
-          <span className="kicker">{p.type}</span>
+          <span className="section-eyebrow">{p.type}</span>
           <h1>{p.name}</h1>
           <p>{p.desc}</p>
           <div className="case-hero-cta">
@@ -1800,7 +1649,7 @@ function CaseStudy() {
             ) : (
               <>
                 <span className="badge-staging">
-                  <span className="badge-staging-dot" /> Client Staging / Demo on Request
+                  <FiLock className="icon-lock" /> Client Staging / Demo on Request
                 </span>
                 <Link className="btn dark" to={`/contact?project=${encodeURIComponent(p.name)}`}>
                   Request Live Demo <FiArrowRight />
@@ -1820,8 +1669,8 @@ function CaseStudy() {
       <Section className="case-details">
         <div className="container case-grid">
           <div>
-            <span className="kicker">Scope & Role</span>
-            <h2>{p.role || 'From idea to launch.'}</h2>
+            <span className="section-eyebrow">Scope & Role</span>
+            <h2>{p.role || 'From idea to launch'}</h2>
           </div>
           <div>
             <p>
@@ -1829,7 +1678,7 @@ function CaseStudy() {
               Structured the content architecture, optimized assets for swift mobile load times, and prepared the installation for long-term client maintainability.
             </p>
             {p.highlights && (
-              <ul style={{ paddingLeft: '20px', marginTop: '16px', color: 'var(--muted)', fontSize: '14px', lineHeight: 1.8 }}>
+              <ul className="case-highlights">
                 {p.highlights.map(h => <li key={h}>{h}</li>)}
               </ul>
             )}
@@ -1863,11 +1712,11 @@ function NotFound() {
     <motion.main variants={pageVariants} initial="initial" animate="animate" exit="exit" className="page-transition-wrap not-found-page">
       <div className="container not-found-content">
         <div className="not-found-code">404</div>
-        <h1>Page not found.</h1>
+        <h1>Page not found</h1>
         <p>The link you clicked may be broken, or the page may have been moved or removed.</p>
         <div className="not-found-actions">
           <Link className="btn dark" to="/">Return Home <FiArrowRight /></Link>
-          <Link className="btn light" to="/work">Explore Work <FiArrowUpRight /></Link>
+          <Link className="btn outline" to="/work">Explore Work <FiArrowUpRight /></Link>
         </div>
       </div>
     </motion.main>
@@ -1893,7 +1742,6 @@ function AnimatedRoutes() {
 }
 
 function FloatingQuickConnect() {
-  const [showTooltip, setShowTooltip] = useState(false);
   const whatsappUrl = 'https://wa.me/916352887015?text=' + encodeURIComponent('Hi Nikhil, I saw your portfolio and would like to discuss a website project.');
 
   return (
@@ -1903,19 +1751,11 @@ function FloatingQuickConnect() {
         target="_blank"
         rel="noopener noreferrer"
         className="floating-btn"
-        onMouseEnter={() => setShowTooltip(true)}
-        onMouseLeave={() => setShowTooltip(false)}
         aria-label="Chat directly on WhatsApp"
+        title="Chat with Nikhil on WhatsApp"
       >
-        <span className="floating-pulse" />
         <FaWhatsapp />
       </a>
-      {showTooltip && (
-        <div className="floating-tooltip">
-          <span>Chat on WhatsApp</span>
-          <small>+91 63528 87015</small>
-        </div>
-      )}
     </aside>
   );
 }
